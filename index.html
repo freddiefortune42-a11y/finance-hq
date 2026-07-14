@@ -12,8 +12,9 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='%2335d49b'/%3E%3Ctext x='12' y='16' font-size='11' text-anchor='middle' fill='%23062018' font-family='sans-serif' font-weight='bold'%3ER%3C/text%3E%3C/svg%3E">
 <style>
 /* ============================================================
-   FINANCE HQ — Phase 1
+   FINANCE HQ — full build (Phases 1–4)
    Single-file personal finance app. Dark, minimal, OMR.
+   Dashboard · Budget · Transactions · Goals · Portfolio · Reports
    ============================================================ */
 :root{
   --bg:#0a0c0f;
@@ -239,8 +240,10 @@ input[type="color"]::-webkit-color-swatch{border:none;border-radius:6px}
   display:flex;background:var(--navbg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   border-top:1px solid var(--border);padding:6px 4px calc(8px + env(safe-area-inset-bottom));z-index:30}
 .navbrand{display:none}
-.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;color:var(--muted);
-  font-size:10.5px;font-weight:600;border-radius:10px;position:relative;transition:color .15s}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 1px;color:var(--muted);
+  font-size:9.5px;font-weight:600;letter-spacing:-.01em;border-radius:10px;position:relative;transition:color .15s;min-width:0}
+.nav-btn svg{width:21px;height:21px}
+.nav-btn span{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .nav-btn.active{color:var(--accent)}
 .nav-btn[data-disabled]{opacity:.42}
 .nav-btn .soon{position:absolute;top:0;right:calc(50% - 26px);font-size:8px;font-weight:700;font-style:normal;color:var(--warn);
@@ -277,6 +280,69 @@ input[type="color"]::-webkit-color-swatch{border:none;border-radius:6px}
 .linkbtn{color:var(--accent);font-weight:600;font-size:13px}
 .cardhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
 .cardhead h2.sec{margin-bottom:0}
+
+/* ---- goals (Phase 2) ---- */
+.goalcard .ghead{display:flex;align-items:center;gap:13px;margin-bottom:14px}
+.gring{flex:none}
+.goalcard .gtitle{min-width:0;flex:1}
+.goalcard .gname{font-weight:600;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.goalcard .gsub{font-size:12px;color:var(--muted);margin-top:1px}
+.gstats{display:flex;gap:22px;flex-wrap:wrap}
+.gstat .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.gstat .v{font-size:15px;font-weight:600;font-variant-numeric:tabular-nums;margin-top:1px}
+.gstat .v.accent{color:var(--accent)}
+.gstat .v.warn{color:var(--warn)}
+.gactions{display:flex;gap:8px;margin-top:14px}
+.goaltag{font-weight:700;font-size:11px;padding:2px 9px;border-radius:12px;flex:none}
+.goaltag.done{color:var(--accent);background:var(--accent-dim)}
+.goaltag.late{color:var(--warn);background:var(--warn-dim)}
+/* mini goal rows on dashboard */
+.gmini{padding:9px 0}
+.gmini+.gmini{border-top:1px solid var(--border)}
+.gmini .l1{display:flex;justify-content:space-between;gap:8px;margin-bottom:6px;font-size:14px;align-items:baseline}
+.gmini .l1 .nm{font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:flex;align-items:center;gap:8px;min-width:0}
+.gmini .l1 .pc{color:var(--muted);font-variant-numeric:tabular-nums;flex:none;font-size:13px}
+
+/* ---- portfolio (Phase 3) ---- */
+.pstat{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.pl{font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;padding:3px 10px;border-radius:12px}
+.pl.up{color:var(--accent);background:var(--accent-dim)}
+.pl.down{color:var(--danger);background:var(--danger-dim)}
+.pl.flat{color:var(--muted);background:var(--surface2)}
+.pricestat{font-size:12px;color:var(--muted);display:inline-flex;align-items:center;gap:6px}
+.pricestat .live{width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none}
+.pricestat.stale .live{background:var(--warn)}
+.pricestat.off .live{background:var(--muted)}
+.hrow{display:flex;align-items:center;gap:12px;padding:11px 0;width:100%;text-align:left}
+.hrow+.hrow{border-top:1px solid var(--border)}
+.hsym{width:38px;height:38px;border-radius:11px;flex:none;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;letter-spacing:.02em}
+.hrow .hq{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;margin-top:1px}
+.hrow .hv{font-weight:600;font-variant-numeric:tabular-nums}
+.hrow .hpl{font-size:12px;font-variant-numeric:tabular-nums;margin-top:1px}
+.hpl.up{color:var(--accent)} .hpl.down{color:var(--danger)} .hpl.flat{color:var(--muted)}
+
+/* ---- reports & projections (Phase 4) ---- */
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.kpi{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:12px}
+.kpi .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.kpi .v{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:3px}
+.kpi .v.pos{color:var(--accent)} .kpi .v.neg{color:var(--danger)}
+.kpi .v small{font-size:.6em;font-weight:600;color:var(--muted)}
+.insight{display:flex;gap:11px;align-items:flex-start;padding:11px 0;font-size:14px}
+.insight+.insight{border-top:1px solid var(--border)}
+.insight .ic{flex:none;margin-top:1px}
+.insight.warn .ic{color:var(--warn)} .insight.good .ic{color:var(--accent)} .insight.bad .ic{color:var(--danger)} .insight.info .ic{color:var(--muted)}
+.insight b{font-weight:600}
+.assume{margin:12px 0 2px}
+.assume label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:7px;text-transform:uppercase;letter-spacing:.05em}
+.assume label b{color:var(--text);font-variant-numeric:tabular-nums}
+.projchart{width:100%;height:auto;display:block;margin:8px 0 2px;overflow:visible}
+.milestones{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.ms{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:11px 8px;text-align:center}
+.ms .k{font-size:11px;color:var(--muted)}
+.ms .v{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:3px}
+.scenario-note{font-size:11px;color:var(--muted);margin-top:12px;text-align:center;font-style:italic;line-height:1.5}
+.repbar{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px}
 
 /* ---- responsive layout wrappers (phone default: plain stacking) ---- */
 .cols,.col{display:contents}
@@ -327,6 +393,19 @@ input[type="color"]::-webkit-color-swatch{border:none;border-radius:6px}
   .total-card{grid-area:total;align-self:start}
   .txlist{grid-area:list;min-width:0;align-self:start}
   .rec-card{grid-area:rec;align-self:start}
+
+  /* goals: two-column card grid, full-width header/add row */
+  .goalsgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start}
+  .goalsgrid>*{margin:0}
+  .goalsgrid .span-full{grid-column:1/-1}
+
+  /* portfolio + reports: 12-col split */
+  .pfgrid,.repgrid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px;align-items:start}
+  .pfgrid>*,.repgrid>*{margin:0}
+  .pfgrid>.sp7,.repgrid>.sp7{grid-column:span 7}
+  .pfgrid>.sp5,.repgrid>.sp5{grid-column:span 5}
+  .repgrid>.span-full{grid-column:1/-1}
+  .kpis{grid-template-columns:repeat(4,1fr)}
 }
 
 @media(prefers-reduced-motion:reduce){
@@ -391,6 +470,22 @@ function parseAmount(str){
   if (!isFinite(n)) return null;
   return Math.round(n * 1000);
 }
+// Asset quantities can be fractional (e.g. 0.05 BTC) — up to 8 dp, trimmed.
+function fmtQty(q){
+  if (!isFinite(q)) return '0';
+  var s = q.toFixed(8).replace(/\.?0+$/,'');
+  var parts = s.split('.');
+  parts[0] = Number(parts[0]).toLocaleString('en-US');
+  return parts.join('.');
+}
+function parseQty(str){
+  var n = parseFloat(String(str).replace(/,/g,''));
+  return isFinite(n) ? n : null;
+}
+function fmtUsd(n){
+  if (!isFinite(n)) return '—';
+  return '$' + n.toLocaleString('en-US', { minimumFractionDigits:2, maximumFractionDigits:2 });
+}
 
 /* ---- dates. now() honours window.__FHQ_NOW for simulated-date testing ---- */
 function now(){ return window.__FHQ_NOW ? new Date(window.__FHQ_NOW) : new Date(); }
@@ -429,8 +524,24 @@ function dayLabel(iso){
    One versioned JSON object under localStorage["financeHQ.v1"].
    ============================================================ */
 var STORE_KEY = 'financeHQ.v1';
-var SCHEMA_VERSION = 1;
+var SCHEMA_VERSION = 2;
 var KINDS = ['spending','saving','investing'];
+var DEFAULT_PEG = 0.385;   // OMR per 1 USD (rial is pegged; user-adjustable)
+
+// Live-price catalog for the "add holding" picker (CoinGecko ids).
+var COINS = [
+  { id:'bitcoin',     sym:'BTC',  name:'Bitcoin' },
+  { id:'ethereum',    sym:'ETH',  name:'Ethereum' },
+  { id:'solana',      sym:'SOL',  name:'Solana' },
+  { id:'ripple',      sym:'XRP',  name:'XRP' },
+  { id:'cardano',     sym:'ADA',  name:'Cardano' },
+  { id:'binancecoin', sym:'BNB',  name:'BNB' },
+  { id:'dogecoin',    sym:'DOGE', name:'Dogecoin' },
+  { id:'polkadot',    sym:'DOT',  name:'Polkadot' },
+  { id:'chainlink',   sym:'LINK', name:'Chainlink' },
+  { id:'litecoin',    sym:'LTC',  name:'Litecoin' }
+];
+function coinInfo(id){ return COINS.find(function(c){ return c.id === id; }) || { id:id, sym:(id||'?').slice(0,4).toUpperCase(), name:id }; }
 
 function seedCategories(){
   return [
@@ -444,15 +555,32 @@ function seedCategories(){
 function defaultState(){
   return {
     version: SCHEMA_VERSION,
-    settings: { currency:'OMR', monthlyIncome:0, theme:'dark' },
+    settings: { currency:'OMR', monthlyIncome:0, theme:'dark', usdToOmr: DEFAULT_PEG },
     categories: seedCategories(),
     transactions: [],
     recurring: [],
     monthBudgets: {},
-    goals: [],       // Phase 2
-    holdings: [],    // Phase 3
-    snapshots: []    // Phase 4
+    goals: [],        // Phase 2 — savings targets
+    holdings: [],     // Phase 3 — portfolio positions
+    priceCache: {},   // Phase 3 — last-known USD prices by coin id (offline fallback)
+    snapshots: []     // Phase 4 — monthly net-worth history
   };
+}
+
+// Upgrade older stored/imported data to the current schema. Adding fields that
+// default sensibly; existing v1 backups remain importable.
+function migrate(o){
+  if (!o || typeof o !== 'object') return o;
+  if (o.version === 1){
+    o.settings = o.settings || {};
+    if (typeof o.settings.usdToOmr !== 'number') o.settings.usdToOmr = DEFAULT_PEG;
+    o.priceCache = o.priceCache || {};
+    o.goals = Array.isArray(o.goals) ? o.goals : [];
+    o.holdings = Array.isArray(o.holdings) ? o.holdings : [];
+    o.snapshots = Array.isArray(o.snapshots) ? o.snapshots : [];
+    o.version = 2;
+  }
+  return o;
 }
 
 function validateState(o){
@@ -460,7 +588,7 @@ function validateState(o){
   function isNum(v){ return typeof v === 'number' && isFinite(v); }
   function isStr(v){ return typeof v === 'string' && v.length > 0; }
   if (!o || typeof o !== 'object' || Array.isArray(o)) return fail('Backup is not a JSON object.');
-  if (o.version !== SCHEMA_VERSION) return fail('Unsupported backup version: ' + o.version);
+  if (typeof o.version !== 'number' || o.version < 1 || o.version > SCHEMA_VERSION) return fail('Unsupported backup version: ' + o.version);
   if (!o.settings || typeof o.settings !== 'object') return fail('Missing settings.');
   if (!isNum(o.settings.monthlyIncome)) return fail('settings.monthlyIncome must be a number.');
   var arrays = ['categories','transactions','recurring'];
@@ -493,6 +621,28 @@ function validateState(o){
       for (var k in m){ if (!isNum(m[k])) return fail('monthBudgets["' + ym + '"] has a non-numeric amount.'); }
     }
   }
+  // Phase 2+ collections (present in v2; tolerated/optional in v1 imports)
+  if (o.goals !== undefined){
+    if (!Array.isArray(o.goals)) return fail('goals must be an array.');
+    for (var g of o.goals){
+      if (!isStr(g.id) || !isStr(g.name)) return fail('Goal missing id/name.');
+      if (!isNum(g.targetAmount) || g.targetAmount <= 0) return fail('Goal "' + g.name + '" target must be a positive number.');
+      if (!isNum(g.currentAmount)) return fail('Goal "' + g.name + '" saved amount must be a number.');
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(g.targetDateISO || '')) return fail('Goal "' + g.name + '" has an invalid target date.');
+    }
+  }
+  if (o.holdings !== undefined){
+    if (!Array.isArray(o.holdings)) return fail('holdings must be an array.');
+    for (var hh of o.holdings){
+      if (!isStr(hh.id) || !isStr(hh.name)) return fail('Holding missing id/name.');
+      if (hh.source !== 'crypto' && hh.source !== 'manual') return fail('Holding "' + hh.name + '" has an invalid source.');
+      if (!isNum(hh.quantity)) return fail('Holding "' + hh.name + '" quantity must be a number.');
+      if (hh.source === 'crypto' && !isStr(hh.coinId)) return fail('Holding "' + hh.name + '" missing coin id.');
+      if (hh.source === 'manual' && !isNum(hh.manualPriceOmr)) return fail('Holding "' + hh.name + '" price must be a number.');
+    }
+  }
+  if (o.priceCache !== undefined && (typeof o.priceCache !== 'object' || Array.isArray(o.priceCache))) return fail('priceCache must be an object.');
+  if (o.snapshots !== undefined && !Array.isArray(o.snapshots)) return fail('snapshots must be an array.');
   return { ok:true };
 }
 function normalizeState(o){
@@ -500,15 +650,28 @@ function normalizeState(o){
   o.monthBudgets = o.monthBudgets || {};
   o.goals = Array.isArray(o.goals) ? o.goals : [];
   o.holdings = Array.isArray(o.holdings) ? o.holdings : [];
+  o.priceCache = (o.priceCache && typeof o.priceCache === 'object') ? o.priceCache : {};
   o.snapshots = Array.isArray(o.snapshots) ? o.snapshots : [];
   o.settings.currency = o.settings.currency || 'OMR';
   o.settings.theme = o.settings.theme === 'light' ? 'light' : 'dark';
+  if (typeof o.settings.usdToOmr !== 'number' || o.settings.usdToOmr <= 0) o.settings.usdToOmr = DEFAULT_PEG;
   o.categories.forEach(function(c){
     c.archived = !!c.archived; c.rollover = !!c.rollover;
     c.color = /^#[0-9a-fA-F]{6}$/.test(c.color || '') ? c.color : '#8b94a1';
   });
   o.recurring.forEach(function(r){ r.active = r.active !== false; });
   o.transactions.forEach(function(t){ if (!('recurringId' in t)) t.recurringId = null; if (!('note' in t)) t.note = ''; });
+  o.goals.forEach(function(g){
+    g.currentAmount = isFinite(g.currentAmount) ? g.currentAmount : 0;
+    g.color = /^#[0-9a-fA-F]{6}$/.test(g.color || '') ? g.color : '#35d49b';
+    if (!('note' in g)) g.note = '';
+  });
+  o.holdings.forEach(function(h){
+    h.quantity = isFinite(h.quantity) ? h.quantity : 0;
+    h.costOmr = isFinite(h.costOmr) ? h.costOmr : 0;
+    if (h.source === 'manual') h.manualPriceOmr = isFinite(h.manualPriceOmr) ? h.manualPriceOmr : 0;
+    h.color = /^#[0-9a-fA-F]{6}$/.test(h.color || '') ? h.color : '#f5a623';
+  });
   return o;
 }
 
@@ -517,8 +680,7 @@ var Store = {
     try {
       var raw = localStorage.getItem(STORE_KEY);
       if (!raw) return null;
-      var obj = JSON.parse(raw);
-      // future migrations keyed off obj.version would run here
+      var obj = migrate(JSON.parse(raw));
       var v = validateState(obj);
       if (!v.ok){ console.warn('Stored data failed validation: ' + v.error); return null; }
       return normalizeState(obj);
@@ -545,7 +707,7 @@ var Store = {
   // Validates first; existing data is untouched unless validation passes.
   import: function(jsonString){
     var obj;
-    try { obj = JSON.parse(jsonString); }
+    try { obj = migrate(JSON.parse(jsonString)); }
     catch(e){ return { ok:false, error:'File is not valid JSON.' }; }
     var v = validateState(obj);
     if (!v.ok) return v;
@@ -657,6 +819,160 @@ function upcomingBills(){
   return out.sort(function(a, b){ return a.days - b.days; });
 }
 
+/* ---- portfolio value (Phase 3) ---- */
+function holdingPriceOmr(h){
+  if (h.source === 'manual') return h.manualPriceOmr || 0;
+  var pc = state.priceCache[h.coinId];
+  if (!pc || !isFinite(pc.usd)) return null;                 // unknown until first fetch
+  return pc.usd * (state.settings.usdToOmr || DEFAULT_PEG);
+}
+function holdingValueB(h){
+  var p = holdingPriceOmr(h);
+  if (p === null) return null;
+  return toB(h.quantity * p);
+}
+function portfolioValueB(){
+  return state.holdings.reduce(function(s, h){ var v = holdingValueB(h); return s + (v || 0); }, 0);
+}
+function portfolioCostB(){
+  return state.holdings.reduce(function(s, h){ return s + toB(h.costOmr || 0); }, 0);
+}
+function uniqueCoinIds(){
+  var set = {};
+  state.holdings.forEach(function(h){ if (h.source === 'crypto' && h.coinId) set[h.coinId] = 1; });
+  return Object.keys(set);
+}
+function pricesAsOf(){
+  var latest = 0;
+  uniqueCoinIds().forEach(function(id){ var pc = state.priceCache[id]; if (pc && pc.ts > latest) latest = pc.ts; });
+  return latest;   // ms epoch; 0 if never fetched
+}
+
+/* ---- net worth incl. portfolio, and monthly snapshots (Phase 4) ---- */
+function netWorthTotalB(){ return netWorthAtB(ymNow()) + portfolioValueB(); }
+function recordSnapshot(){
+  var ym = ymNow();
+  var cashB = netWorthAtB(ym), portB = portfolioValueB(), totalB = cashB + portB;
+  var ex = state.snapshots.find(function(s){ return s.ym === ym; });
+  if (ex){ ex.cashB = cashB; ex.portfolioB = portB; ex.totalB = totalB; ex.ts = Date.now(); }
+  else state.snapshots.push({ ym: ym, cashB: cashB, portfolioB: portB, totalB: totalB, ts: Date.now() });
+  state.snapshots.sort(function(a, b){ return a.ym < b.ym ? -1 : (a.ym > b.ym ? 1 : 0); });
+}
+
+/* ---- goals (Phase 2) ---- */
+function goalMonthsLeft(g){ return monthsBetween(ymNow(), g.targetDateISO.slice(0,7)) + 1; } // incl. current month
+function goalRemainingB(g){ return Math.max(0, toB(g.targetAmount) - toB(g.currentAmount)); }
+function goalMonthly(g){
+  var remainB = goalRemainingB(g);
+  if (remainB <= 0) return 0;
+  var months = goalMonthsLeft(g);
+  if (months <= 1) return remainB;         // due this month or overdue → whole remainder
+  return Math.round(remainB / months);
+}
+function goalPct(g){
+  var t = toB(g.targetAmount); if (t <= 0) return 0;
+  return Math.min(100, Math.max(0, (toB(g.currentAmount) / t) * 100));
+}
+function goalOverdue(g){ return goalRemainingB(g) > 0 && g.targetDateISO < todayISO(); }
+
+/* ---- reports & projections (Phase 4) ---- */
+function avgMonthlySpendB(monthsBack){
+  var cur = ymNow(), first = earliestYM(), sum = 0, count = 0;
+  for (var i = 1; i <= monthsBack; i++){
+    var ym = addMonths(cur, -i);
+    if (ym < first) break;
+    sum += txInMonth(ym).reduce(function(s, t){ return s + toB(t.amount); }, 0);
+    count++;
+  }
+  return count ? Math.round(sum / count) : 0;
+}
+function monthReport(ym){
+  var incomeB = toB(state.settings.monthlyIncome);
+  var txs = txInMonth(ym);
+  var spendIds = state.categories.filter(function(c){ return c.kind === 'spending'; }).map(function(c){ return c.id; });
+  var totalOutB = txs.reduce(function(s, t){ return s + toB(t.amount); }, 0);
+  var spendingB = txs.reduce(function(s, t){ return spendIds.indexOf(t.categoryId) !== -1 ? s + toB(t.amount) : s; }, 0);
+  var savedInvB = totalOutB - spendingB;
+  var netB = incomeB - totalOutB;
+  var savingsRate = incomeB > 0 ? Math.round(((incomeB - spendingB) / incomeB) * 100) : 0;
+  var perCat = activeCats().map(function(c){
+    return { cat:c, spentB: spentB(ym, c.id), budgetB: effBudgetB(ym, c) };
+  }).filter(function(r){ return r.spentB > 0 || r.budgetB > 0; })
+    .sort(function(a, b){ return b.spentB - a.spentB; });
+  return { incomeB:incomeB, totalOutB:totalOutB, spendingB:spendingB, savedInvB:savedInvB, netB:netB, savingsRate:savingsRate, perCat:perCat };
+}
+function trendInsights(){
+  var ym = ymNow(), d = now(), dim = daysInYM(ym), day = d.getDate(), frac = day / dim, out = [];
+  if (frac > 0){
+    activeCats('spending').forEach(function(c){
+      var bd = effBudgetB(ym, c); if (bd <= 0) return;
+      var sp = spentB(ym, c.id); if (sp <= 0) return;
+      var projected = sp / frac;
+      var pct = Math.round((projected / bd - 1) * 100);
+      if (pct >= 10) out.push({ kind:'warn', html:'Trending <b>' + pct + '% over</b> on ' + esc(c.name) + ' — on pace for ' + fmtB(Math.round(projected)) + ' vs ' + fmtB(bd) + ' budget.' });
+      else if (pct <= -15) out.push({ kind:'good', html:'<b>' + esc(c.name) + '</b> is well under pace — heading for about ' + fmtB(Math.round(projected)) + ' of ' + fmtB(bd) + '.' });
+    });
+  }
+  var lastYM = addMonths(ym, -1);
+  if (lastYM >= earliestYM() && toB(state.settings.monthlyIncome) > 0){
+    var r = monthReport(lastYM), mlabel = monthLabel(lastYM).split(' ')[0];
+    if (r.savingsRate >= 20) out.push({ kind:'good', html:'You kept <b>' + r.savingsRate + '%</b> of income in ' + mlabel + ' — a strong month.' });
+    else if (r.netB < 0) out.push({ kind:'bad', html:'You spent more than you earned in ' + mlabel + ' (' + r.savingsRate + '% savings rate).' });
+    else out.push({ kind:'info', html:'Savings rate in ' + mlabel + ': <b>' + r.savingsRate + '%</b> of income kept.' });
+  }
+  var rep = monthReport(ym);
+  var top = rep.perCat.filter(function(x){ return x.cat.kind === 'spending' && x.spentB > 0; })[0];
+  if (top) out.push({ kind:'info', html:'Biggest category so far this month: <b>' + esc(top.cat.name) + '</b> at ' + fmtB(top.spentB) + '.' });
+  if (!out.length) out.push({ kind:'info', html:'Not enough activity yet this month to spot trends — log a few transactions.' });
+  return out;
+}
+function projectSeries(startB, monthlyB, annualPct, horizon){
+  var monthlyRate = Math.pow(1 + annualPct / 100, 1 / 12) - 1;
+  var pts = [{ m:0, b:startB }], bal = startB;
+  for (var i = 1; i <= horizon; i++){ bal = bal * (1 + monthlyRate) + monthlyB; pts.push({ m:i, b:Math.round(bal) }); }
+  return pts;
+}
+
+/* ---- live prices (Phase 3): the app's only network call ----
+   GETs USD spot prices from CoinGecko for held coins, converts to OMR via the
+   peg, caches them for offline use. Sends only coin ids — never any user data. */
+var _pricesBusy = false;
+function refreshPrices(cb){
+  if (_pricesBusy){ cb && cb({ ok:false, reason:'busy' }); return; }
+  var ids = uniqueCoinIds();
+  if (!ids.length){ cb && cb({ ok:false, reason:'no-coins' }); return; }
+  if (typeof navigator !== 'undefined' && navigator.onLine === false){ cb && cb({ ok:false, reason:'offline' }); return; }
+  _pricesBusy = true;
+  var url = 'https://api.coingecko.com/api/v3/simple/price?ids=' + ids.map(encodeURIComponent).join(',') + '&vs_currencies=usd';
+  var done = false;
+  var timer = setTimeout(function(){ if (done) return; done = true; _pricesBusy = false; cb && cb({ ok:false, reason:'timeout' }); }, 12000);
+  fetch(url, { cache:'no-store' })
+    .then(function(res){ if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+    .then(function(data){
+      if (done) return; done = true; clearTimeout(timer); _pricesBusy = false;
+      var ts = Date.now(), got = 0;
+      ids.forEach(function(id){ if (data[id] && isFinite(data[id].usd)){ state.priceCache[id] = { usd:data[id].usd, ts:ts }; got++; } });
+      Store.save();
+      cb && cb({ ok: got > 0, updated: got });
+    })
+    .catch(function(err){
+      if (done) return; done = true; clearTimeout(timer); _pricesBusy = false;
+      cb && cb({ ok:false, reason: String(err && err.message || err) });
+    });
+}
+// Refresh in the background when online and prices are stale (or forced),
+// then re-record the snapshot and repaint the value-bearing views.
+function maybeRefreshPrices(force){
+  if (!uniqueCoinIds().length) return;
+  if (typeof navigator !== 'undefined' && navigator.onLine === false) return;
+  var asOf = pricesAsOf();
+  var age = asOf ? (Date.now() - asOf) : Infinity;
+  if (!force && age < 10 * 60 * 1000) return;   // already fresh
+  refreshPrices(function(res){
+    if (res && res.ok){ recordSnapshot(); Store.save(); if (ui.view === 'home' || ui.view === 'portfolio') render(); }
+  });
+}
+
 /* ============================================================
    4. RECURRING AUTO-POST
    When the app opens on/after the due day and this month's
@@ -753,6 +1069,41 @@ function buildSampleState(){
   });
   // current-month recurring instances are intentionally NOT posted here,
   // so autoPostRecurring() demonstrates the "posted automatically" notice.
+
+  // Phase 2 — savings goals
+  s.goals = [
+    { id: uid(), name:'Emergency fund', targetAmount:5000, currentAmount:1850, targetDateISO: addMonths(curYM, 8) + '-28', color:'#35d49b', note:'6 months of essentials' },
+    { id: uid(), name:'New MacBook',    targetAmount:900,  currentAmount:320,  targetDateISO: addMonths(curYM, 4) + '-15', color:'#5b8def', note:'' },
+    { id: uid(), name:'Trip to Salalah',targetAmount:600,  currentAmount:600,  targetDateISO: addMonths(curYM, 2) + '-10', color:'#e879a0', note:'Khareef season' }
+  ];
+
+  // Phase 3 — portfolio holdings + last-known prices (refreshed live when online)
+  s.settings.usdToOmr = DEFAULT_PEG;
+  s.holdings = [
+    { id: uid(), name:'Bitcoin',  source:'crypto', coinId:'bitcoin',  quantity:0.045, costOmr:820, color:'#f7931a' },
+    { id: uid(), name:'Ethereum', source:'crypto', coinId:'ethereum', quantity:0.6,   costOmr:520, color:'#627eea' },
+    { id: uid(), name:'Solana',   source:'crypto', coinId:'solana',   quantity:8,     costOmr:410, color:'#14f195' },
+    { id: uid(), name:'Trading account', source:'manual', quantity:1, manualPriceOmr:940, costOmr:750, color:'#a78bfa' }
+  ];
+  // Seed plausible last-known USD prices so values show instantly & offline.
+  var seedTs = now().getTime() - 36 * 3600 * 1000;   // ~1.5 days ago → shows as "stale" until refreshed
+  s.priceCache = {
+    bitcoin:  { usd:64200, ts:seedTs },
+    ethereum: { usd:3350,  ts:seedTs },
+    solana:   { usd:148,   ts:seedTs }
+  };
+
+  // Phase 4 — net-worth snapshots for the two prior months (so MoM + trends have history)
+  var savedState = state;
+  state = s;
+  try {
+    [-2, -1].forEach(function(off){
+      var ym = addMonths(curYM, off);
+      var cashB = netWorthAtB(ym), portB = portfolioValueB();
+      s.snapshots.push({ ym: ym, cashB: cashB, portfolioB: portB, totalB: cashB + portB, ts: dateFromISO(ym + '-28').getTime() });
+    });
+  } finally { state = savedState; }
+
   return s;
 }
 
@@ -781,7 +1132,11 @@ var ICO = {
   upload:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"/><path d="M7.5 7.5 12 3l4.5 4.5"/><path d="M4 20h16"/></svg>',
   sparkle:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/></svg>',
   trash:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M9 7V4.5A1.5 1.5 0 0 1 10.5 3h3A1.5 1.5 0 0 1 15 4.5V7"/><path d="M6.5 7 7.4 20a1.5 1.5 0 0 0 1.5 1.4h6.2a1.5 1.5 0 0 0 1.5-1.4L17.5 7"/></svg>',
-  moon:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5z"/></svg>'
+  moon:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5z"/></svg>',
+  reports:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5"/><path d="M4 19h16"/><path d="M8 16v-4"/><path d="M12.5 16V8"/><path d="M17 16v-6"/></svg>',
+  refresh:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 12a8.5 8.5 0 0 1 14.5-6l2 2"/><path d="M20 4v4h-4"/><path d="M20.5 12a8.5 8.5 0 0 1-14.5 6l-2-2"/><path d="M4 20v-4h4"/></svg>',
+  wallet:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5A2.5 2.5 0 0 1 5.5 5H18a2 2 0 0 1 2 2v.5"/><rect x="3" y="7" width="18" height="12" rx="2.5"/><circle cx="16.5" cy="13" r="1.2" fill="currentColor"/></svg>',
+  plus18:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>'
 };
 
 function toastTimer(){}
@@ -826,13 +1181,14 @@ function budgetBar(spent, budget){
    7. VIEWS
    ============================================================ */
 var NAV_ITEMS = [
-  { view:'home',   label:'Home',         icon:'home' },
-  { view:'budget', label:'Budget',       icon:'budget' },
-  { view:'tx',     label:'Transactions', icon:'tx' },
-  { view:'goals',  label:'Goals',        icon:'goals',     disabled:true },
-  { view:'portfolio', label:'Portfolio', icon:'portfolio', disabled:true }
+  { view:'home',      label:'Home',     icon:'home' },
+  { view:'budget',    label:'Budget',   icon:'budget' },
+  { view:'tx',        label:'Spending', icon:'tx' },
+  { view:'goals',     label:'Goals',    icon:'goals' },
+  { view:'portfolio', label:'Assets',   icon:'portfolio' },
+  { view:'reports',   label:'Trends',   icon:'reports' }
 ];
-var VIEW_TITLES = { home:'Finance HQ', budget:'Budget', tx:'Transactions' };
+var VIEW_TITLES = { home:'Finance HQ', budget:'Budget', tx:'Transactions', goals:'Goals', portfolio:'Portfolio', reports:'Reports' };
 
 function renderNav(){
   qs('#nav').innerHTML = '<div class="navbrand"><span class="logo">R</span><span>Finance HQ</span></div>' +
@@ -849,7 +1205,11 @@ function render(){
   qs('#view-title').textContent = VIEW_TITLES[ui.view] || 'Finance HQ';
   if (ui.view === 'home') renderHome();
   else if (ui.view === 'budget') renderBudget();
-  else renderTx();
+  else if (ui.view === 'tx') renderTx();
+  else if (ui.view === 'goals') renderGoals();
+  else if (ui.view === 'portfolio') renderPortfolio();
+  else if (ui.view === 'reports') renderReports();
+  else renderHome();
 }
 
 /* ------------------------- DASHBOARD ------------------------- */
@@ -884,18 +1244,23 @@ function renderHome(){
       ' · ' + sts.daysLeft + (sts.daysLeft === 1 ? ' day' : ' days') + ' remaining</p>';
   }
 
-  // net worth + MoM delta
-  var nwNow = netWorthAtB(ym);
-  var hasHistory = earliestYM() < ym;
-  var deltaHtml;
-  if (hasHistory){
-    var deltaB = nwNow - netWorthAtB(addMonths(ym, -1));
+  // net worth (cash + portfolio) + MoM delta from snapshots
+  var cashB = netWorthAtB(ym), portB = portfolioValueB(), nwNow = cashB + portB;
+  var lastYM = addMonths(ym, -1);
+  var lastSnap = state.snapshots.find(function(s){ return s.ym === lastYM; });
+  var deltaHtml, deltaB = null;
+  if (lastSnap) deltaB = nwNow - lastSnap.totalB;
+  else if (earliestYM() < ym) deltaB = cashB - netWorthAtB(lastYM);   // fall back to cash change
+  if (deltaB === null){
+    deltaHtml = '<div class="delta flat">first month</div>';
+  } else {
     var cls = deltaB > 0 ? 'up' : (deltaB < 0 ? 'down' : 'flat');
     var arrow = deltaB > 0 ? ICO.up : (deltaB < 0 ? ICO.down : '');
     deltaHtml = '<div class="delta ' + cls + '">' + arrow + '<span>' + fmtB(Math.abs(deltaB)) + ' vs last month</span></div>';
-  } else {
-    deltaHtml = '<div class="delta flat">first month</div>';
   }
+  var nwSub = portB > 0
+    ? '<p class="gsub num" style="margin-top:6px">cash ' + fmtB(cashB) + ' · assets ' + fmtB(portB) + '</p>'
+    : '';
 
   // budget bars — active spending categories
   var spendCats = activeCats('spending');
@@ -923,6 +1288,40 @@ function renderHome(){
       '<div class="when' + (b.days === 0 ? ' today' : '') + '">' + whenTxt + '</div></div></div>';
   }).join('') : '<div class="empty">Nothing due in the next 7 days.</div>';
 
+  // goals (Phase 2) — up to 4 nearest-deadline goals as progress rows
+  var sortedGoals = state.goals.slice().sort(function(a, b){ return a.targetDateISO < b.targetDateISO ? -1 : 1; });
+  var goalsCardHtml;
+  if (sortedGoals.length){
+    var gRows = sortedGoals.slice(0, 4).map(function(g){
+      var pct = goalPct(g), done = goalRemainingB(g) <= 0;
+      return '<div class="gmini">' +
+        '<div class="l1"><span class="nm"><span class="dot" style="background:' + g.color + '"></span>' + esc(g.name) + '</span>' +
+        '<span class="pc num">' + (done ? 'reached 🎉' : fmtB(toB(g.currentAmount)) + ' / ' + fmtB(toB(g.targetAmount))) + '</span></div>' +
+        miniBar(pct, g.color) + '</div>';
+    }).join('');
+    goalsCardHtml = '<section class="card sp7"><div class="cardhead"><h2 class="sec">Goals</h2>' +
+      '<button class="linkbtn" data-action="nav" data-view="goals">Manage</button></div>' + gRows + '</section>';
+  } else {
+    goalsCardHtml = '<section class="card sp7"><h2 class="sec">Goals</h2>' +
+      '<div class="empty">No savings goals yet — <button class="linkbtn" data-action="nav" data-view="goals">set one up</button></div></section>';
+  }
+
+  // portfolio (Phase 3) — value + P/L snapshot
+  var portfolioCardHtml;
+  if (state.holdings.length){
+    var pv = portfolioValueB(), pcost = portfolioCostB(), pl = pv - pcost;
+    var plCls = pl > 0 ? 'up' : (pl < 0 ? 'down' : 'flat');
+    portfolioCardHtml = '<section class="card sp5"><div class="cardhead"><h2 class="sec">Portfolio</h2>' +
+      '<button class="linkbtn" data-action="nav" data-view="portfolio">Open</button></div>' +
+      '<p class="nw num" style="font-size:22px">' + fmtB(pv) + '<span class="cur">OMR</span></p>' +
+      (pcost > 0 ? '<div class="pstat" style="margin-top:8px"><span class="pl ' + plCls + ' num">' +
+        (pl >= 0 ? '+' : '−') + fmtB(Math.abs(pl)) + ' all-time</span></div>' : '') +
+      '</section>';
+  } else {
+    portfolioCardHtml = '<section class="card sp5"><h2 class="sec">Portfolio</h2>' +
+      '<div class="empty">No holdings yet — <button class="linkbtn" data-action="nav" data-view="portfolio">add one</button></div></section>';
+  }
+
   qs('#view').innerHTML =
     noticeBanner() +
     '<section class="greet"><h1>' + greeting + ', Freddie</h1>' +
@@ -933,8 +1332,8 @@ function renderHome(){
     '<section class="card hero sp7' + (incomeSet && sts.over ? ' over' : '') + '">' + heroInner + '</section>' +
 
     '<section class="card networth sp5">' +
-      '<div><p class="label">Net worth · cash</p>' +
-      '<p class="nw num">' + fmtB(nwNow) + '<span class="cur">OMR</span></p></div>' +
+      '<div><p class="label">Net worth</p>' +
+      '<p class="nw num">' + fmtB(nwNow) + '<span class="cur">OMR</span></p>' + nwSub + '</div>' +
       deltaHtml +
     '</section>' +
 
@@ -944,11 +1343,19 @@ function renderHome(){
 
     '<section class="card sp5"><h2 class="sec">Upcoming bills</h2>' + billsHtml + '</section>' +
 
+    goalsCardHtml +
+    portfolioCardHtml +
+
     '</div>';
 }
 function splitMoney(b){
   var s = fmtB(b), i = s.lastIndexOf('.');
   return '<span class="int">' + s.slice(0, i) + '</span><span class="dec">' + s.slice(i) + '</span>';
+}
+// Simple accent progress bar (0–100), used for goals.
+function miniBar(pct, color){
+  var w = Math.min(100, Math.max(0, pct));
+  return '<div class="bar"><i style="width:' + w.toFixed(1) + '%;background:' + (color || 'var(--accent)') + '"></i></div>';
 }
 
 /* ------------------------- BUDGET PLANNER ------------------------- */
@@ -1151,6 +1558,237 @@ function renderTx(){
   });
 }
 
+/* ------------------------- GOALS (Phase 2) ------------------------- */
+function fullDate(iso){ return dateFromISO(iso).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' }); }
+function progressRing(pct, color, done){
+  var r = 20, c = 2 * Math.PI * r;
+  var off = c * (1 - Math.min(100, Math.max(0, pct)) / 100);
+  var col = done ? 'var(--accent)' : (color || 'var(--accent)');
+  return '<svg class="gring" width="52" height="52" viewBox="0 0 52 52" aria-hidden="true">' +
+    '<circle cx="26" cy="26" r="20" fill="none" stroke="var(--surface2)" stroke-width="5"/>' +
+    '<circle cx="26" cy="26" r="20" fill="none" stroke="' + col + '" stroke-width="5" stroke-linecap="round" ' +
+      'stroke-dasharray="' + c.toFixed(1) + '" stroke-dashoffset="' + off.toFixed(1) + '" transform="rotate(-90 26 26)"/>' +
+    '<text x="26" y="30" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--text)" font-family="inherit">' + Math.round(pct) + '</text>' +
+    '</svg>';
+}
+function renderGoals(){
+  var goals = state.goals.slice().sort(function(a, b){ return a.targetDateISO < b.targetDateISO ? -1 : 1; });
+  var totalTargetB = goals.reduce(function(s, g){ return s + toB(g.targetAmount); }, 0);
+  var totalSavedB = goals.reduce(function(s, g){ return s + Math.min(toB(g.currentAmount), toB(g.targetAmount)); }, 0);
+  var totalMonthlyB = goals.reduce(function(s, g){ return s + goalMonthly(g); }, 0);
+
+  var cards = goals.map(function(g){
+    var pct = goalPct(g), remainB = goalRemainingB(g), done = remainB <= 0, overdue = goalOverdue(g);
+    var monthly = goalMonthly(g), monthsLeft = goalMonthsLeft(g);
+    var tag = done ? '<span class="goaltag done">Reached</span>' : (overdue ? '<span class="goaltag late">Past due</span>' : '');
+    var perMonth, perCls = 'accent';
+    if (done){ perMonth = 'Done'; }
+    else if (overdue){ perMonth = fmtB(remainB) + ' now'; perCls = 'warn'; }
+    else { perMonth = fmtB(monthly) + '/mo'; }
+    var dueLine = (done ? 'Complete' : 'Target ' + fullDate(g.targetDateISO) +
+      (overdue ? '' : ' · ' + monthsLeft + (monthsLeft === 1 ? ' month left' : ' months left'))) +
+      (g.note ? ' · ' + esc(g.note) : '');
+    return '<section class="card goalcard">' +
+      '<div class="ghead">' + progressRing(pct, g.color, done) +
+        '<div class="gtitle"><div class="gname">' + esc(g.name) + ' ' + tag + '</div>' +
+        '<div class="gsub">' + dueLine + '</div></div></div>' +
+      '<div class="gstats">' +
+        '<div class="gstat"><div class="k">Saved</div><div class="v num">' + fmtB(toB(g.currentAmount)) + ' / ' + fmtB(toB(g.targetAmount)) + '</div></div>' +
+        '<div class="gstat"><div class="k">' + (done ? 'Remaining' : 'Still needed') + '</div><div class="v num">' + fmtB(remainB) + '</div></div>' +
+        '<div class="gstat"><div class="k">Per month</div><div class="v ' + perCls + ' num">' + perMonth + '</div></div>' +
+      '</div>' +
+      '<div class="gactions">' +
+        (done ? '' : '<button class="btn btn-sm btn-primary" data-action="goal-contribute" data-id="' + g.id + '">' + ICO.plus + ' Add savings</button>') +
+        '<button class="btn btn-sm btn-ghost" data-action="goal-edit" data-id="' + g.id + '">Edit</button>' +
+      '</div></section>';
+  }).join('');
+
+  var summary = '<section class="card span-full"><div class="cardhead"><h2 class="sec">Your goals</h2>' +
+    '<button class="btn btn-sm btn-ghost" data-action="goal-add">' + ICO.plus + ' New goal</button></div>' +
+    (goals.length ? '<div class="gstats" style="margin-top:6px">' +
+      '<div class="gstat"><div class="k">Saved toward goals</div><div class="v num">' + fmtB(totalSavedB) + ' / ' + fmtB(totalTargetB) + '</div></div>' +
+      '<div class="gstat"><div class="k">Combined per month</div><div class="v accent num">' + fmtB(totalMonthlyB) + '</div></div>' +
+    '</div>' : '<div class="empty">No goals yet. Set a target amount and date — Finance HQ works out what to put aside each month.</div>') +
+    '</section>';
+
+  qs('#view').innerHTML = '<div class="goalsgrid">' + summary + cards + '</div>';
+}
+
+/* ------------------------- PORTFOLIO (Phase 3) ------------------------- */
+function relTime(ms){
+  if (!ms) return 'never';
+  var s = Math.max(0, Math.round((Date.now() - ms) / 1000));
+  if (s < 60) return 'just now';
+  var m = Math.round(s / 60); if (m < 60) return m + 'm ago';
+  var h = Math.round(m / 60); if (h < 24) return h + 'h ago';
+  return Math.round(h / 24) + 'd ago';
+}
+function renderPortfolio(){
+  var pv = portfolioValueB(), pcost = portfolioCostB(), pl = pv - pcost;
+  var plCls = pl > 0 ? 'up' : (pl < 0 ? 'down' : 'flat');
+  var hasCoins = uniqueCoinIds().length > 0;
+  var asOf = pricesAsOf();
+
+  var statusHtml = '';
+  if (hasCoins){
+    var offline = (typeof navigator !== 'undefined' && navigator.onLine === false);
+    var ageMin = asOf ? (Date.now() - asOf) / 60000 : Infinity;
+    var cls = 'live', txt;
+    if (asOf === 0){ cls = 'off'; txt = 'Prices not fetched yet'; }
+    else if (offline){ cls = 'off'; txt = 'Offline · prices ' + relTime(asOf); }
+    else if (ageMin > 30){ cls = 'stale'; txt = 'Prices ' + relTime(asOf); }
+    else { cls = 'live'; txt = 'Live · ' + relTime(asOf); }
+    statusHtml = '<span class="pricestat ' + cls + '"><span class="live"></span>' + txt + '</span>';
+  }
+
+  var rows = state.holdings.map(function(h){
+    var info = h.source === 'crypto' ? coinInfo(h.coinId) : { sym:(h.name || '?').replace(/[^A-Za-z]/g,'').slice(0,4).toUpperCase() || 'AST' };
+    var priceOmr = holdingPriceOmr(h), valB = holdingValueB(h), costB = toB(h.costOmr || 0);
+    var plB = valB === null ? null : valB - costB;
+    var sub = h.source === 'crypto'
+      ? fmtQty(h.quantity) + ' ' + info.sym + (priceOmr !== null ? ' · ' + fmtB(toB(priceOmr)) + '/ea' : ' · price pending')
+      : 'Manual' + (h.quantity !== 1 ? ' · ' + fmtQty(h.quantity) + ' × ' + fmtB(toB(h.manualPriceOmr)) : '');
+    return '<button class="hrow" data-action="holding-edit" data-id="' + h.id + '">' +
+      '<span class="hsym" style="background:' + h.color + '">' + esc((info.sym || 'AST').slice(0,4)) + '</span>' +
+      '<div class="grow"><div class="title">' + esc(h.name) + '</div><div class="hq num">' + sub + '</div></div>' +
+      '<div class="right"><div class="hv num">' + (valB === null ? '—' : fmtB(valB)) + '</div>' +
+        (plB !== null && costB > 0 ? '<div class="hpl ' + (plB > 0 ? 'up' : (plB < 0 ? 'down' : 'flat')) + ' num">' + (plB >= 0 ? '+' : '−') + fmtB(Math.abs(plB)) + '</div>' : '') +
+      '</div></button>';
+  }).join('');
+
+  qs('#view').innerHTML =
+    '<div class="pfgrid">' +
+    '<section class="card sp5">' +
+      '<p class="label">Portfolio value</p>' +
+      '<p class="nw num" style="font-size:30px">' + fmtB(pv) + '<span class="cur">OMR</span></p>' +
+      (pcost > 0 ? '<div class="pstat" style="margin-top:8px"><span class="pl ' + plCls + ' num">' +
+        (pl >= 0 ? '+' : '−') + fmtB(Math.abs(pl)) + ' all-time</span>' +
+        '<span class="muted num" style="font-size:12px">cost ' + fmtB(pcost) + '</span></div>' : '') +
+      (hasCoins ? '<div style="margin-top:16px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">' +
+        statusHtml + '<button class="btn btn-sm" data-action="refresh-prices" id="refresh-btn">' + ICO.refresh + ' Refresh</button></div>' +
+        '<p class="muted" style="font-size:11px;margin-top:10px">Crypto valued from CoinGecko in USD, converted at ' + state.settings.usdToOmr + ' OMR/USD.</p>' : '') +
+    '</section>' +
+    '<section class="card sp7"><div class="cardhead"><h2 class="sec">Holdings</h2>' +
+      '<button class="btn btn-sm btn-ghost" data-action="holding-add">' + ICO.plus + ' Add</button></div>' +
+      (state.holdings.length ? rows : '<div class="empty">No holdings yet. Add crypto with live prices, or a manual asset (a trading balance, stocks, gold…).</div>') +
+    '</section>' +
+    '</div>';
+}
+
+/* ------------------------- REPORTS & PROJECTIONS (Phase 4) ------------------------- */
+function buildProjChart(pts){
+  var W = 640, H = 150, padT = 8, padB = 8;
+  var vals = pts.map(function(p){ return p.b; });
+  var maxB = Math.max.apply(null, vals), minB = Math.min(0, Math.min.apply(null, vals));
+  var span = (maxB - minB) || 1, n = pts.length - 1 || 1;
+  function x(i){ return (i / n) * W; }
+  function y(b){ return padT + (1 - (b - minB) / span) * (H - padT - padB); }
+  var line = pts.map(function(p, i){ return (i ? 'L' : 'M') + x(i).toFixed(1) + ' ' + y(p.b).toFixed(1); }).join(' ');
+  var area = 'M' + x(0).toFixed(1) + ' ' + y(minB).toFixed(1) + ' ' +
+    pts.map(function(p, i){ return 'L' + x(i).toFixed(1) + ' ' + y(p.b).toFixed(1); }).join(' ') +
+    ' L' + x(n).toFixed(1) + ' ' + y(minB).toFixed(1) + ' Z';
+  return '<svg class="projchart" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" aria-hidden="true">' +
+    '<defs><linearGradient id="pgrad" x1="0" y1="0" x2="0" y2="1">' +
+    '<stop offset="0" stop-color="var(--accent)" stop-opacity="0.28"/><stop offset="1" stop-color="var(--accent)" stop-opacity="0"/></linearGradient></defs>' +
+    '<path d="' + area + '" fill="url(#pgrad)"/>' +
+    '<path d="' + line + '" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>' +
+    '</svg>';
+}
+function projInner(){
+  var p = ui.proj;
+  var pts = projectSeries(p.startB, p.monthlyB, p.annualPct, p.months);
+  var endB = pts[pts.length - 1].b;
+  var addedB = p.monthlyB * p.months;
+  var growthB = endB - p.startB - addedB;
+  return buildProjChart(pts) +
+    '<div class="milestones">' +
+      '<div class="ms"><div class="k">In ' + p.months + ' months</div><div class="v num">' + fmtB(endB) + '</div></div>' +
+      '<div class="ms"><div class="k">You add</div><div class="v num">' + fmtB(addedB) + '</div></div>' +
+      '<div class="ms"><div class="k">Growth</div><div class="v num">' + (growthB >= 0 ? '+' : '−') + fmtB(Math.abs(growthB)) + '</div></div>' +
+    '</div>' +
+    '<p class="scenario-note">A scenario, not a prediction. Assumes a steady ' + fmtB(p.monthlyB) + ' OMR/month added and ' +
+      p.annualPct + '% annual growth applied to the whole balance. Real markets and spending vary.</p>';
+}
+function renderReports(){
+  var ym = ui.month, rep = monthReport(ym);
+  var incomeSet = rep.incomeB > 0;
+
+  // KPIs
+  var netCls = rep.netB > 0 ? 'pos' : (rep.netB < 0 ? 'neg' : '');
+  var kpis = '<div class="kpis">' +
+    '<div class="kpi"><div class="k">Income</div><div class="v num">' + fmtB(rep.incomeB) + '</div></div>' +
+    '<div class="kpi"><div class="k">Spent</div><div class="v num">' + fmtB(rep.totalOutB) + '</div></div>' +
+    '<div class="kpi"><div class="k">Net saved</div><div class="v num ' + netCls + '">' + (rep.netB >= 0 ? '+' : '−') + fmtB(Math.abs(rep.netB)) + '</div></div>' +
+    '<div class="kpi"><div class="k">Savings rate</div><div class="v num ' + (rep.savingsRate >= 0 ? 'pos' : 'neg') + '">' + (incomeSet ? rep.savingsRate + '<small>%</small>' : '—') + '</div></div>' +
+  '</div>';
+
+  // per-category breakdown (all kinds with activity)
+  var breakdown = rep.perCat.length ? rep.perCat.map(function(r){
+    return '<div class="brow">' +
+      '<div class="line1"><div class="name"><span class="dot" style="background:' + r.cat.color + '"></span><span>' + esc(r.cat.name) + '</span></div>' +
+      '<div class="amt num"><b>' + fmtB(r.spentB) + '</b>' + (r.budgetB > 0 ? ' / ' + fmtB(r.budgetB) : '') + '</div></div>' +
+      (r.budgetB > 0 ? budgetBar(r.spentB, r.budgetB) : miniBar(0, r.cat.color)) + '</div>';
+  }).join('') : '<div class="empty">No activity in ' + monthLabel(ym) + '.</div>';
+
+  // insights (current pace + last month) — only meaningful on/near the current month
+  var insights = trendInsights().map(function(x){
+    return '<div class="insight ' + x.kind + '"><span class="ic">' +
+      (x.kind === 'good' ? ICO.check : x.kind === 'bad' ? ICO.down : x.kind === 'warn' ? ICO.up : ICO.sparkle) +
+      '</span><div>' + x.html + '</div></div>';
+  }).join('');
+
+  // projection assumptions (kept in ui, not persisted)
+  if (!ui.proj){
+    var defMonthly = Math.max(0, toB(state.settings.monthlyIncome) - avgMonthlySpendB(3));
+    ui.proj = { startB: netWorthTotalB(), monthlyB: defMonthly, annualPct: 5, months: 24 };
+  } else {
+    ui.proj.startB = netWorthTotalB();   // always project from current net worth
+  }
+  var p = ui.proj;
+  var horizons = [12, 24, 60];
+  var projection = '<section class="card span-full"><h2 class="sec">Net-worth projection</h2>' +
+    '<div class="assume"><label for="proj-monthly">Added per month <b id="proj-monthly-lbl">' + fmtB(p.monthlyB) + ' OMR</b></label>' +
+      '<input id="proj-monthly" class="input num" type="number" min="0" step="1" inputmode="decimal" value="' + inputVal(p.monthlyB) + '"></div>' +
+    '<div class="assume"><label for="proj-growth">Annual growth <b id="proj-growth-lbl">' + p.annualPct + '%</b></label>' +
+      '<input id="proj-growth" type="range" min="0" max="15" step="0.5" value="' + p.annualPct + '"></div>' +
+    '<div class="assume"><label>Horizon</label><div class="btnrow" style="margin-bottom:0">' +
+      horizons.map(function(h){ return '<button class="btn btn-sm proj-h' + (p.months === h ? ' btn-primary' : '') + '" data-months="' + h + '">' + (h < 12 ? h + ' mo' : (h / 12) + ' yr') + '</button>'; }).join('') +
+    '</div></div>' +
+    '<div id="proj-out">' + projInner() + '</div>' +
+  '</section>';
+
+  qs('#view').innerHTML =
+    monthSwitcher() +
+    '<div class="repgrid">' +
+      '<section class="card sp7"><h2 class="sec">' + monthLabel(ym) + ' summary</h2>' + kpis +
+        '<h2 class="sec" style="margin-top:16px">Where it went</h2>' + breakdown + '</section>' +
+      '<section class="card sp5"><h2 class="sec">Insights</h2>' + insights + '</section>' +
+      projection +
+    '</div>';
+
+  // --- projection bindings ---
+  function commit(){
+    var out = qs('#proj-out'); if (out) out.innerHTML = projInner();
+  }
+  var mEl = qs('#proj-monthly');
+  if (mEl) mEl.addEventListener('change', function(){
+    var b = parseAmount(mEl.value); ui.proj.monthlyB = (b === null || b < 0) ? 0 : b;
+    qs('#proj-monthly-lbl').textContent = fmtB(ui.proj.monthlyB) + ' OMR'; commit();
+  });
+  var gEl = qs('#proj-growth');
+  if (gEl) gEl.addEventListener('input', function(){
+    ui.proj.annualPct = parseFloat(gEl.value) || 0;
+    qs('#proj-growth-lbl').textContent = ui.proj.annualPct + '%'; commit();
+  });
+  qsa('.proj-h').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      ui.proj.months = parseInt(btn.getAttribute('data-months'), 10) || 24;
+      qsa('.proj-h').forEach(function(b){ b.classList.remove('btn-primary'); });
+      btn.classList.add('btn-primary'); commit();
+    });
+  });
+}
+
 /* ============================================================
    8. MODALS & SHEETS
    ============================================================ */
@@ -1319,23 +1957,197 @@ function openRecModal(rec){
   });
 }
 
+/* ---- goal add/edit ---- */
+function openGoalModal(goal){
+  var isNew = !goal;
+  var g = goal || { id:null, name:'', targetAmount:0, currentAmount:0, targetDateISO: addMonths(ymNow(), 6) + '-28', color:'#35d49b', note:'' };
+  openSheet(
+    '<h3>' + (isNew ? 'New goal' : 'Edit goal') + ' <button class="iconbtn" id="m-close">' + ICO.close + '</button></h3>' +
+    '<div class="field"><label for="m-name">Goal name</label>' +
+      '<input id="m-name" class="input" type="text" maxlength="40" value="' + esc(g.name) + '" placeholder="e.g. Emergency fund"></div>' +
+    '<div class="fieldrow">' +
+      '<div class="field"><label for="m-target">Target (OMR)</label>' +
+        '<input id="m-target" class="input num" type="number" min="0" step="0.001" inputmode="decimal" value="' + (g.targetAmount ? inputVal(toB(g.targetAmount)) : '') + '"></div>' +
+      '<div class="field"><label for="m-date">Target date</label>' +
+        '<input id="m-date" class="input" type="date" value="' + g.targetDateISO + '"></div>' +
+    '</div>' +
+    '<div class="fieldrow">' +
+      '<div class="field"><label for="m-current">Saved so far (OMR)</label>' +
+        '<input id="m-current" class="input num" type="number" min="0" step="0.001" inputmode="decimal" value="' + inputVal(toB(g.currentAmount)) + '"></div>' +
+      '<div class="field" style="flex:0 0 auto"><label for="m-color">Color</label>' +
+        '<input id="m-color" type="color" value="' + g.color + '"></div>' +
+    '</div>' +
+    '<div class="field"><label for="m-note">Note (optional)</label>' +
+      '<input id="m-note" class="input" type="text" maxlength="60" value="' + esc(g.note || '') + '" placeholder="What it\'s for"></div>' +
+    '<div class="actions">' +
+      (isNew ? '' : '<button class="btn btn-ghost" id="m-delete" style="flex:0 0 auto;color:var(--danger)">' + ICO.trash + '</button>') +
+      '<button class="btn btn-primary" id="m-save">Save</button>' +
+    '</div>'
+  );
+  qs('#m-close').addEventListener('click', closeSheet);
+  if (!isNew){
+    qs('#m-delete').addEventListener('click', function(){
+      confirmDialog('Delete goal "' + esc(g.name) + '"? This only removes the goal, not any transactions.', 'Delete', function(){
+        state.goals = state.goals.filter(function(x){ return x.id !== g.id; });
+        Store.save(); render(); toast('Goal deleted');
+      });
+    });
+  }
+  qs('#m-save').addEventListener('click', function(){
+    var name = qs('#m-name').value.trim();
+    if (!name){ toast('Enter a name'); return; }
+    var tb = parseAmount(qs('#m-target').value);
+    if (tb === null || tb <= 0){ toast('Enter a target amount'); return; }
+    var cb = parseAmount(qs('#m-current').value);
+    var current = (cb === null || cb < 0) ? 0 : fromB(cb);
+    var dateVal = qs('#m-date').value;
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(dateVal)){ toast('Enter a target date'); return; }
+    if (isNew){
+      state.goals.push({ id: uid(), name:name, targetAmount:fromB(tb), currentAmount:current,
+        targetDateISO:dateVal, color:qs('#m-color').value, note:qs('#m-note').value.trim() });
+    } else {
+      g.name = name; g.targetAmount = fromB(tb); g.currentAmount = current;
+      g.targetDateISO = dateVal; g.color = qs('#m-color').value; g.note = qs('#m-note').value.trim();
+    }
+    Store.save(); closeSheet(); render(); toast(isNew ? 'Goal added' : 'Saved');
+  });
+}
+
+/* ---- add savings to a goal ---- */
+function openContributeModal(goal){
+  var saveCats = activeCats('saving').concat(activeCats('investing'));
+  openSheet(
+    '<h3>Add to ' + esc(goal.name) + ' <button class="iconbtn" id="m-close">' + ICO.close + '</button></h3>' +
+    '<div class="field"><label for="m-amount">Amount to add (OMR)</label>' +
+      '<input id="m-amount" class="input num" type="number" min="0" step="0.001" inputmode="decimal" placeholder="0.000"></div>' +
+    (saveCats.length ?
+      '<label class="switch" style="margin-bottom:12px"><input type="checkbox" id="m-log" checked><i></i><span>Also log it as a transaction</span></label>' +
+      '<div class="fieldrow" id="m-logrow">' +
+        '<div class="field"><label for="m-cat">Category</label><select id="m-cat" class="input">' +
+          saveCats.map(function(c){ return '<option value="' + c.id + '">' + esc(c.name) + '</option>'; }).join('') + '</select></div>' +
+        '<div class="field"><label for="m-date">Date</label><input id="m-date" class="input" type="date" value="' + todayISO() + '"></div>' +
+      '</div>' : '') +
+    '<div class="actions"><button class="btn btn-primary" id="m-save">Add savings</button></div>'
+  );
+  qs('#m-close').addEventListener('click', closeSheet);
+  qs('#m-save').addEventListener('click', function(){
+    var b = parseAmount(qs('#m-amount').value);
+    if (b === null || b <= 0){ toast('Enter an amount'); return; }
+    goal.currentAmount = round3(goal.currentAmount + fromB(b));
+    var logEl = qs('#m-log');
+    if (logEl && logEl.checked){
+      var dateVal = qs('#m-date').value;
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(dateVal)) dateVal = todayISO();
+      state.transactions.push({ id: uid(), dateISO:dateVal, amount:fromB(b),
+        categoryId: qs('#m-cat').value, note:'Goal: ' + goal.name, recurringId:null });
+    }
+    Store.save(); closeSheet(); render();
+    toast(fmtB(b) + ' OMR → ' + goal.name + (goalRemainingB(goal) <= 0 ? ' · reached 🎉' : ''));
+  });
+}
+
+/* ---- holding add/edit (Phase 3) ---- */
+function openHoldingModal(hold){
+  var isNew = !hold;
+  var h = hold || { id:null, name:'', source:'crypto', coinId:'bitcoin', quantity:null, manualPriceOmr:0, costOmr:0, color:'#f5a623' };
+  openSheet(
+    '<h3>' + (isNew ? 'Add holding' : 'Edit holding') + ' <button class="iconbtn" id="m-close">' + ICO.close + '</button></h3>' +
+    '<div class="field"><label for="m-source">Type</label><select id="m-source" class="input">' +
+      '<option value="crypto"' + (h.source === 'crypto' ? ' selected' : '') + '>Crypto (live price)</option>' +
+      '<option value="manual"' + (h.source === 'manual' ? ' selected' : '') + '>Manual asset (you set the value)</option>' +
+    '</select></div>' +
+    '<div class="field" id="blk-coin"><label for="m-coin">Coin</label><select id="m-coin" class="input">' +
+      COINS.map(function(c){ return '<option value="' + c.id + '"' + (h.coinId === c.id ? ' selected' : '') + '>' + c.name + ' (' + c.sym + ')</option>'; }).join('') +
+    '</select></div>' +
+    '<div class="field" id="blk-name"><label for="m-name">Name</label>' +
+      '<input id="m-name" class="input" type="text" maxlength="40" value="' + esc(h.name) + '" placeholder="e.g. Trading account"></div>' +
+    '<div class="fieldrow">' +
+      '<div class="field"><label for="m-qty" id="lbl-qty">Quantity</label>' +
+        '<input id="m-qty" class="input num" type="number" min="0" step="any" inputmode="decimal" value="' + (h.quantity != null ? fmtQty(h.quantity).replace(/,/g,'') : '') + '" placeholder="0"></div>' +
+      '<div class="field" id="blk-price"><label for="m-price">Price now (OMR)</label>' +
+        '<input id="m-price" class="input num" type="number" min="0" step="0.001" inputmode="decimal" value="' + (h.source === 'manual' && h.manualPriceOmr ? inputVal(toB(h.manualPriceOmr)) : '') + '" placeholder="0.000"></div>' +
+    '</div>' +
+    '<div class="fieldrow">' +
+      '<div class="field"><label for="m-cost">Total invested (OMR, optional)</label>' +
+        '<input id="m-cost" class="input num" type="number" min="0" step="0.001" inputmode="decimal" value="' + (h.costOmr ? inputVal(toB(h.costOmr)) : '') + '" placeholder="for profit / loss"></div>' +
+      '<div class="field" style="flex:0 0 auto"><label for="m-color">Color</label>' +
+        '<input id="m-color" type="color" value="' + h.color + '"></div>' +
+    '</div>' +
+    '<div class="actions">' +
+      (isNew ? '' : '<button class="btn btn-ghost" id="m-delete" style="flex:0 0 auto;color:var(--danger)">' + ICO.trash + '</button>') +
+      '<button class="btn btn-primary" id="m-save">Save</button>' +
+    '</div>'
+  );
+  function syncSource(){
+    var src = qs('#m-source').value;
+    qs('#blk-coin').style.display = src === 'crypto' ? '' : 'none';
+    qs('#blk-name').style.display = src === 'manual' ? '' : 'none';
+    qs('#blk-price').style.display = src === 'manual' ? '' : 'none';
+    qs('#lbl-qty').textContent = src === 'crypto' ? 'Quantity (coins)' : 'Quantity';
+  }
+  syncSource();
+  qs('#m-close').addEventListener('click', closeSheet);
+  qs('#m-source').addEventListener('change', syncSource);
+  if (!isNew){
+    qs('#m-delete').addEventListener('click', function(){
+      confirmDialog('Delete holding "' + esc(h.name) + '"? This cannot be undone.', 'Delete', function(){
+        state.holdings = state.holdings.filter(function(x){ return x.id !== h.id; });
+        Store.save(); render(); toast('Holding deleted');
+      });
+    });
+  }
+  qs('#m-save').addEventListener('click', function(){
+    var src = qs('#m-source').value;
+    var qty = parseQty(qs('#m-qty').value);
+    if (qty === null || qty <= 0){ toast('Enter a quantity'); return; }
+    var costB = parseAmount(qs('#m-cost').value);
+    var cost = (costB === null || costB < 0) ? 0 : fromB(costB);
+    var color = qs('#m-color').value;
+    if (src === 'crypto'){
+      var coinId = qs('#m-coin').value, info = coinInfo(coinId);
+      var nm = qs('#m-name').value.trim() || info.name;
+      if (isNew) state.holdings.push({ id: uid(), name:nm, source:'crypto', coinId:coinId, quantity:qty, costOmr:cost, color:color });
+      else { h.name = nm; h.source = 'crypto'; h.coinId = coinId; h.quantity = qty; h.costOmr = cost; h.color = color; delete h.manualPriceOmr; }
+    } else {
+      var name = qs('#m-name').value.trim();
+      if (!name){ toast('Enter a name'); return; }
+      var pb = parseAmount(qs('#m-price').value);
+      var price = (pb === null || pb < 0) ? 0 : fromB(pb);
+      if (isNew) state.holdings.push({ id: uid(), name:name, source:'manual', quantity:qty, manualPriceOmr:price, costOmr:cost, color:color });
+      else { h.name = name; h.source = 'manual'; h.manualPriceOmr = price; h.quantity = qty; h.costOmr = cost; h.color = color; delete h.coinId; }
+    }
+    Store.save();
+    closeSheet(); render(); toast(isNew ? 'Holding added' : 'Saved');
+    if (src === 'crypto') maybeRefreshPrices(true);
+  });
+}
+
 /* ---- settings sheet ---- */
 function openSettings(){
   openSheet(
     '<h3>Settings <button class="iconbtn" id="m-close">' + ICO.close + '</button></h3>' +
     '<div class="setrow">' + ICO.moon + '<span class="grow">Dark theme</span>' +
       '<label class="switch"><input type="checkbox" id="set-theme"' + (state.settings.theme !== 'light' ? ' checked' : '') + '><i></i></label></div>' +
+    '<div class="setrow" style="align-items:center">' + ICO.wallet +
+      '<div class="grow"><div>USD → OMR rate</div><div class="muted" style="font-size:12px">Values crypto holdings (rial is pegged)</div></div>' +
+      '<input id="set-peg" class="input num" type="number" min="0" step="0.0001" inputmode="decimal" value="' + state.settings.usdToOmr + '" style="width:96px;padding:8px 10px"></div>' +
     '<button class="setrow" id="set-export">' + ICO.download + '<span class="grow">Export backup</span></button>' +
     '<button class="setrow" id="set-import">' + ICO.upload + '<span class="grow">Import backup</span></button>' +
     '<input type="file" id="set-file" accept=".json,application/json" style="display:none">' +
     '<button class="setrow" id="set-sample">' + ICO.sparkle + '<span class="grow">Load sample data</span></button>' +
     '<button class="setrow danger" id="set-fresh">' + ICO.trash + '<span class="grow">Start fresh</span></button>' +
-    '<p class="muted" style="font-size:11px;margin-top:14px;text-align:center">Finance HQ · Phase 1 · data stays on this Mac (localStorage — keep backups)</p>'
+    '<p class="muted" style="font-size:11px;margin-top:14px;text-align:center">Finance HQ · data stays on this device (localStorage — keep backups)</p>'
   );
   qs('#m-close').addEventListener('click', closeSheet);
   qs('#set-theme').addEventListener('change', function(e){
     state.settings.theme = e.target.checked ? 'dark' : 'light';
     Store.save(); applyTheme();
+  });
+  qs('#set-peg').addEventListener('change', function(e){
+    var v = parseFloat(e.target.value);
+    state.settings.usdToOmr = (isFinite(v) && v > 0) ? v : DEFAULT_PEG;
+    e.target.value = state.settings.usdToOmr;
+    Store.save();
   });
   qs('#set-export').addEventListener('click', function(){ Store.export(); });
   qs('#set-import').addEventListener('click', function(){ qs('#set-file').click(); });
@@ -1352,7 +2164,7 @@ function openSettings(){
       if (!v.ok){ toast('Import failed: ' + v.error); return; }
       confirmDialog('Replace all current data with this backup (' + probe.transactions.length + ' transactions)?', 'Replace', function(){
         var res = Store.import(text);
-        if (res.ok){ applyTheme(); ui.month = ymNow(); autoPostRecurring(); render(); toast('Backup restored'); }
+        if (res.ok){ applyTheme(); ui.month = ymNow(); ui.proj = null; autoPostRecurring(); recordSnapshot(); Store.save(); render(); maybeRefreshPrices(true); toast('Backup restored'); }
         else toast('Import failed: ' + res.error);
       });
     };
@@ -1366,9 +2178,9 @@ function openSettings(){
     confirmDialog(msg, 'Load sample', function(){
       state = buildSampleState();
       Store.save();
-      ui.month = ymNow(); ui.notice = null;
-      autoPostRecurring();
-      applyTheme(); render(); toast('Sample data loaded');
+      ui.month = ymNow(); ui.notice = null; ui.proj = null;
+      autoPostRecurring(); recordSnapshot(); Store.save();
+      applyTheme(); render(); maybeRefreshPrices(true); toast('Sample data loaded');
     });
   });
   qs('#set-fresh').addEventListener('click', function(){
@@ -1377,7 +2189,7 @@ function openSettings(){
       state = defaultState();
       state.settings.theme = theme;
       Store.save();
-      ui.month = ymNow(); ui.notice = null;
+      ui.month = ymNow(); ui.notice = null; ui.proj = null;
       render(); toast('Fresh start');
     });
   });
@@ -1454,6 +2266,39 @@ document.addEventListener('click', function(e){
       break;
     }
     case 'toggle-archived': ui.showArchived = !ui.showArchived; render(); break;
+    case 'goal-add': openGoalModal(null); break;
+    case 'goal-edit': {
+      var goalE = state.goals.find(function(x){ return x.id === id; });
+      if (goalE) openGoalModal(goalE);
+      break;
+    }
+    case 'goal-contribute': {
+      var goalC = state.goals.find(function(x){ return x.id === id; });
+      if (goalC) openContributeModal(goalC);
+      break;
+    }
+    case 'holding-add': openHoldingModal(null); break;
+    case 'holding-edit': {
+      var hE = state.holdings.find(function(x){ return x.id === id; });
+      if (hE) openHoldingModal(hE);
+      break;
+    }
+    case 'refresh-prices': {
+      var rbtn = qs('#refresh-btn');
+      if (rbtn){ rbtn.disabled = true; rbtn.style.opacity = '.6'; }
+      toast('Refreshing prices…');
+      refreshPrices(function(res){
+        if (res && res.ok){ recordSnapshot(); Store.save(); render(); toast('Prices updated'); }
+        else {
+          render();
+          toast(res && res.reason === 'offline' ? 'You’re offline — showing last known prices' :
+                res && res.reason === 'timeout' ? 'Price service timed out — try again' :
+                res && res.reason === 'no-coins' ? 'No crypto holdings to price' :
+                'Could not refresh prices right now');
+        }
+      });
+      break;
+    }
     case 'preset': {
       var incomeB = toB(state.settings.monthlyIncome);
       if (incomeB <= 0){ toast('Set your monthly income first'); return; }
@@ -1493,8 +2338,10 @@ function init(){
   if (!state){ state = defaultState(); Store.save(); }
   applyTheme();
   autoPostRecurring();
+  recordSnapshot(); Store.save();
   render();
   initPWA();
+  maybeRefreshPrices(false);   // background price update if online & stale
 }
 
 // Hosted (https) copies get PWA extras: manifest, home-screen icon, offline
@@ -1517,8 +2364,12 @@ window.FHQ = {
   set state(s){ state = s; },
   ui: ui, Store: Store, render: render,
   safeToSpend: safeToSpend, effBudgetB: effBudgetB, carryB: carryB,
-  netWorthAtB: netWorthAtB, autoPostRecurring: autoPostRecurring,
-  buildSampleState: buildSampleState, validateState: validateState, fmtB: fmtB
+  netWorthAtB: netWorthAtB, netWorthTotalB: netWorthTotalB, autoPostRecurring: autoPostRecurring,
+  buildSampleState: buildSampleState, validateState: validateState, migrate: migrate, fmtB: fmtB,
+  portfolioValueB: portfolioValueB, portfolioCostB: portfolioCostB, holdingValueB: holdingValueB,
+  goalMonthly: goalMonthly, goalPct: goalPct, goalRemainingB: goalRemainingB,
+  monthReport: monthReport, trendInsights: trendInsights, projectSeries: projectSeries,
+  refreshPrices: refreshPrices, recordSnapshot: recordSnapshot, avgMonthlySpendB: avgMonthlySpendB
 };
 </script>
 </body>

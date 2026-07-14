@@ -2,7 +2,7 @@
    Strategy: stale-while-revalidate. The cached copy loads instantly (even with
    no signal); a fresh copy is fetched in the background and used next launch.
    Bump CACHE when deploying breaking changes. */
-var CACHE = 'fhq-v1';
+var CACHE = 'fhq-v2';
 var ASSETS = ['./', './index.html', './apple-touch-icon.png', './icon-192.png', './icon-512.png', './manifest.json'];
 
 self.addEventListener('install', function (e) {
